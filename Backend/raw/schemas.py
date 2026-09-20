@@ -1,7 +1,7 @@
 from pydantic import BaseModel,EmailStr,ConfigDict
 from typing import Optional
 from datetime import datetime
-from . models import SlotStatus
+from . models import SlotStatus,BookingStatus
 
 class TokenData(BaseModel):
     id: Optional[int]= None
@@ -34,5 +34,21 @@ class AddSlots(BaseModel):
     start_time: datetime
     end_time: datetime
     status : SlotStatus    
+    created_at: Optional[datetime] = None
+    model_config = ConfigDict(from_attributes=True) 
+
+
+
+#===============BOOKING SCHEMAS==============
+class CreateBooking(BaseModel):
+    slot_id :int
+    
+    
+
+class AddBooking(BaseModel):
+    id: Optional[int]= None
+    slot_id :int
+    user_id:int
+    status: BookingStatus  
     created_at: Optional[datetime] = None
     model_config = ConfigDict(from_attributes=True) 
