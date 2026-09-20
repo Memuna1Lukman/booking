@@ -5,6 +5,7 @@ from .routes import auth,user
 from fastapi.middleware.cors import CORSMiddleware
 
 
+
 app = FastAPI()
 
 
