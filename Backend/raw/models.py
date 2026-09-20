@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, Enum, UniqueConstraint
+from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, Enum, UniqueConstraint,Boolean
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from .database import Base
@@ -23,6 +23,7 @@ class Users(Base):
     username = Column(String, unique=True, nullable=False)
     email = Column(String, nullable=False, unique=True)
     password = Column(String, nullable=True)
+    is_admin = Column(Boolean, nullable=False, server_default="false")
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     bookings = relationship("Bookings", back_populates="user")

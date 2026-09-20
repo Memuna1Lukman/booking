@@ -56,7 +56,12 @@ def get_current_user(token:str=Depends(oauth2_scheme),db:Session=Depends(get_db)
     if not token:
         raise credential_exception
     token=verify_token(token,credential_exception)
-    user = db.query(models.User).filter(models.User.id==token.id).first()
+    user = db.query(models.Users).filter(models.Users.id==token.id).first()
     if user is None:
         raise credential_exception
     return user
+def get_current_admin(db:Session = Depends(get_db),current_User:models.Users = Depends(get_current_user)):
+   
+    if not current_User.is_admin:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,detail="Admins Only")
+    return current_User
