@@ -1,5 +1,5 @@
 from fastapi import HTTPException,Depends,status,APIRouter,Response
-from .. import models,utils,schemas,oauth2
+from .. import models,utils,schemas,oauth
 from ..database import get_db
 from sqlalchemy.orm import Session
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
@@ -14,16 +14,16 @@ router = APIRouter(
 def login_user(
     response:Response,
     user:OAuth2PasswordRequestForm=Depends(),db:Session = Depends(get_db)):
-    check_user = db.query(models.User).filter(models.User.email == user.username).first()
+    check_user = db.query(models.Users).filter(models.Users.email == user.username).first()
     if not check_user:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,detail=f"Invalid Credentials")
 
-    verify_password = utils.unhash_password(user.password,check_user.password)
+    verify_password = utils.verify_password(user.password,check_user.password)
     if not verify_password:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,detail=f"Invalid Credentials")
 
     
-    access_token = oauth2.create_token(data={"owner_id": check_user.id})
+    access_token = oauth.create_token(data={"owner_id": check_user.id})
     # reponse in the cookie form
     response.set_cookie(
         key="access_token",

@@ -7,6 +7,23 @@ class TokenData(BaseModel):
     id: Optional[int]= None
 
 
+# =====================USER SCHEMAS=====================
+class UserCreate(BaseModel):
+    username: str
+    email: EmailStr
+    password: str
+
+
+class UserOut(BaseModel):
+    id: int
+    username: str
+    email: EmailStr
+    is_admin: bool
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+
 #=====================  Services Schema======================
 class PostServices(BaseModel):
     name: str
@@ -52,3 +69,5 @@ class AddBooking(BaseModel):
     status: BookingStatus  
     created_at: Optional[datetime] = None
     model_config = ConfigDict(from_attributes=True) 
+
+ 

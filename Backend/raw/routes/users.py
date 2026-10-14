@@ -15,8 +15,8 @@ router = APIRouter(
 @router.post("/", response_model=schemas.UserOut, status_code=status.HTTP_201_CREATED)
 def create_users (user:schemas.UserCreate,db:Session = Depends(get_db)):
     new_user = user.model_dump()  # make the user a dict
-    new_user["password"] = utils.get_password_hash()
-    new_user_obj = models.User(**new_user)
+    new_user["password"] = utils.get_password_hash(new_user["password"])
+    new_user_obj = models.Users(**new_user)
     try:
         db.add(new_user_obj)
         db.commit()
@@ -28,4 +28,3 @@ def create_users (user:schemas.UserCreate,db:Session = Depends(get_db)):
             detail="User already exist"
         )
     return new_user_obj
-

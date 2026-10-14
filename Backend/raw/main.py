@@ -8,6 +8,9 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+@app.get("/")
+def greet():
+    return {"message":"Hellooo!"}
 
 app.include_router(auth.router)
 app.include_router(users.router)
