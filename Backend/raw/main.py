@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Response
-from . import models
-from .database import engine
-from .routes import auth, users, services, slots, bookings
+import models
+from database import engine
+from routes import auth, users, services, slots, bookings
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()

@@ -1,8 +1,8 @@
 from fastapi import HTTPException,Depends,status,APIRouter,Response,Request
-from .. import models,utils,schemas,oauth
-from ..database import get_db
+import models,utils,schemas,oauth
+from database import get_db
 from sqlalchemy.orm import Session
-from ..config import settings
+from config import settings
 
 router = APIRouter(
     tags= ["Authentication"],
