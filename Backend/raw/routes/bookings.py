@@ -8,11 +8,12 @@ from datetime import date,timedelta,datetime
 
 
 router = APIRouter(
-    tags=["Booking"],
-    prefix="/booking"
+    tags=["Bookings"],
+    prefix="/bookings"
 )
 
-@router.post("/",response_model=schemas.AddBooking,status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=schemas.AddBooking, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=schemas.AddBooking, status_code=status.HTTP_201_CREATED)
 def create_bookings(booking:schemas.CreateBooking,db:Session = Depends(get_db),current_user:models.Users = Depends(oauth.get_current_user)):
     # does the slot exist?
     slots = db.query(models.AvailabilitySlot).filter(models.AvailabilitySlot.id == booking.slot_id).first()
@@ -38,7 +39,8 @@ def create_bookings(booking:schemas.CreateBooking,db:Session = Depends(get_db),c
     return add_bookings
 
 
-@router.get("/",response_model=List[schemas.AddBooking])
+@router.get("", response_model=List[schemas.AddBooking])
+@router.get("/", response_model=List[schemas.AddBooking])
 def get_all_bookings(db:Session = Depends(get_db),current_user:models.Users = Depends(oauth.get_current_user)):
     # query to get the logged in users bookings
     bookings = db.query(models.Bookings).filter(

@@ -1,7 +1,9 @@
-const API_URL = import.meta.env.VITE_API_URL || 'https://booking-raw.vercel.app/'
+const RAW_URL = import.meta.env.VITE_API_URL || 'https://booking-raw.vercel.app'
+const API_URL = RAW_URL.replace(/\/+$/, '')
 
 async function request(path, options = {}) {
-  const response = await fetch(`${API_URL}${path}`, {
+  const cleanPath = path.startsWith('/') ? path : `/${path}`
+  const response = await fetch(`${API_URL}${cleanPath}`, {
     credentials: 'include',
     headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
     ...options,

@@ -12,6 +12,7 @@ router = APIRouter(
 )
 
 
+@router.post("", response_model=schemas.UserOut, status_code=status.HTTP_201_CREATED)
 @router.post("/", response_model=schemas.UserOut, status_code=status.HTTP_201_CREATED)
 def create_users (user:schemas.UserCreate,db:Session = Depends(get_db)):
     new_user = user.model_dump()  # make the user a dict

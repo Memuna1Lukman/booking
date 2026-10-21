@@ -12,7 +12,7 @@ router = APIRouter(
 )
 
 
-@router.post("/",response_model=schemas.AddServices,status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=schemas.AddServices, status_code=status.HTTP_201_CREATED)
 def created_services(service:schemas.PostServices,db:Session = Depends(get_db),current_user:models.Users = Depends(oauth.get_current_admin)):
     services_dict = service.model_dump()
     add_services = models.Services(**services_dict)
@@ -26,7 +26,8 @@ def created_services(service:schemas.PostServices,db:Session = Depends(get_db),c
     return add_services    
 
 
-@router.get("/",response_model=List[schemas.AddServices])
+@router.get("", response_model=List[schemas.AddServices])
+@router.get("/", response_model=List[schemas.AddServices])
 def get_services(db:Session = Depends(get_db)):
     # check services exist that is does the user have any services
 

@@ -12,7 +12,7 @@ router = APIRouter(
     prefix="/slots"
 )
 
-@router.post("/",response_model=schemas.AddSlots,status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=schemas.AddSlots, status_code=status.HTTP_201_CREATED)
 def create_slots(slot:schemas.CreateSlots,db:Session = Depends(get_db),current_user:models.Users = Depends(oauth.get_current_admin)):
     # confirm the referenced service actually exists
     service = db.query(models.Services).filter(models.Services.id == slot.service_id).first()
@@ -36,7 +36,7 @@ def create_slots(slot:schemas.CreateSlots,db:Session = Depends(get_db),current_u
     return add_slots
 
 
-@router.get("/",response_model=List[schemas.AddSlots])
+@router.get("", response_model=List[schemas.AddSlots])
 def get_slots(
     db: Session = Depends(get_db),
     date_filter: date | None = None,

@@ -1,26 +1,30 @@
-from fastapi import FastAPI,Response
+from fastapi import FastAPI, Response
 from . import models
 from .database import engine
-from .routes import auth,users,services,slots
+from .routes import auth, users, services, slots, bookings
 from fastapi.middleware.cors import CORSMiddleware
-
-
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://booking-one-brown.vercel.app",
+        "http://localhost:5173",
+        "http://localhost:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.get("/")
 def greet():
-    return {"message":"Hellooo!"}
+    return {"message": "Hellooo!"}
 
 app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(services.router)
 app.include_router(slots.router)
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["https://booking-one-brown.vercel.app"], # React Vite dev server
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+app.include_router(bookings.router)
+app.include_router(bookings.router, prefix="/booking")
