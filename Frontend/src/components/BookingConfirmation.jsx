@@ -1,4 +1,5 @@
 import { Calendar, Clock, Video, ShieldCheck, ArrowRight } from 'lucide-react'
+import { useAuth } from '../hooks/useAuth'
 import { Button } from './ui/Button'
 import { Spinner } from './ui/Spinner'
 
@@ -15,7 +16,8 @@ function formatTime(rawTime) {
   return `${displayH}:${m} ${ampm}`
 }
 
-export function BookingConfirmation({ service, date, slot, onConfirm, loading }) {
+export function BookingConfirmation({ service, date, slot, onConfirm, loading, go }) {
+  const { user } = useAuth()
   const isComplete = Boolean(service && date && slot)
   const duration = service?.duration_minutes || service?.duration || 60
   const price = service?.price ? `$${service.price}` : 'Free'
@@ -109,24 +111,45 @@ export function BookingConfirmation({ service, date, slot, onConfirm, loading })
       </div>
 
       <div className="summary-actions">
-        <Button
-          variant="primary"
-          className="confirm-booking-btn"
-          onClick={onConfirm}
-          disabled={!isComplete || loading}
-        >
-          {loading ? (
-            <>
-              <Spinner size="sm" />
-              <span>Reserving slot…</span>
-            </>
-          ) : (
-            <>
-              <span>Confirm Reservation</span>
+        {user ? (
+          <Button
+            variant="primary"
+            className="confirm-booking-btn"
+            onClick={onConfirm}
+            disabled={!isComplete || loading}
+          >
+            {loading ? (
+              <>
+                <Spinner size="sm" />
+                <span>Reserving slot…</span>
+              </>
+            ) : (
+              <>
+                <span>Confirm Reservation</span>
+                <ArrowRight size={16} />
+              </>
+            )}
+          </Button>
+        ) : (
+          <div className="booking-auth-prompt-box">
+            <Button
+              variant="primary"
+              className="confirm-booking-btn"
+              onClick={() => (go ? go('/signup') : (window.location.hash = '/signup'))}
+              disabled={!isComplete}
+            >
+              <span>Sign Up to Reserve</span>
               <ArrowRight size={16} />
-            </>
-          )}
-        </Button>
+            </Button>
+            <button
+              type="button"
+              className="booking-auth-signin-link"
+              onClick={() => (go ? go('/login') : (window.location.hash = '/login'))}
+            >
+              Already have an account? Sign in
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="summary-guarantee-note">

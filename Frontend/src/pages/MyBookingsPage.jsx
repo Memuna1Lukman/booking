@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useAuth } from '../hooks/useAuth'
 import { useBookings } from '../hooks/useBookings'
 import { BookingList } from '../components/BookingList'
 import { Spinner } from '../components/ui/Spinner'
 import { Button } from '../components/ui/Button'
 import { Modal } from '../components/ui/Modal'
-import { Calendar, Plus, RefreshCw, AlertCircle, LogIn } from 'lucide-react'
+import { Calendar, Plus, RefreshCw, AlertCircle, LogIn, UserPlus } from 'lucide-react'
 
 export function MyBookingsPage({ go }) {
   const { user, loading: authLoading } = useAuth()
@@ -36,9 +36,13 @@ export function MyBookingsPage({ go }) {
           <div className="prompt-actions">
             <Button variant="primary" onClick={() => go('/login')}>
               <LogIn size={16} />
-              <span>Sign in with Email</span>
+              <span>Sign in</span>
             </Button>
-            <Button variant="secondary" onClick={() => go('/book')}>
+            <Button variant="secondary" onClick={() => go('/signup')}>
+              <UserPlus size={16} />
+              <span>Create Account</span>
+            </Button>
+            <Button variant="ghost" onClick={() => go('/book')}>
               Browse Available Services
             </Button>
           </div>

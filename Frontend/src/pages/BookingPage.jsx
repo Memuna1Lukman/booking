@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useServices } from '../hooks/useServices'
 import { useSlots } from '../hooks/useSlots'
 import { useBookings } from '../hooks/useBookings'
@@ -32,6 +32,7 @@ export function BookingPage({ go }) {
       if (preselectedId) {
         const found = services.find((s) => String(s.id) === String(preselectedId))
         if (found) {
+          // eslint-disable-next-line react-hooks/set-state-in-effect
           setService(found)
           window.sessionStorage.removeItem('selected_service_id')
         }
@@ -186,6 +187,7 @@ export function BookingPage({ go }) {
             slot={slot}
             onConfirm={confirm}
             loading={saving}
+            go={go}
           />
         </div>
       </div>

@@ -362,6 +362,16 @@
   background: var(--slate-100);
 }
 
+.btn-text-signup {
+  background: var(--slate-100);
+  color: var(--slate-800);
+}
+
+.btn-text-signup:hover {
+  background: var(--slate-200);
+  color: var(--slate-900);
+}
+
 .btn-header-book {
   box-shadow: 0 4px 12px rgba(255, 56, 92, 0.28);
 }
@@ -2664,6 +2674,42 @@
   box-shadow: var(--shadow-card);
 }
 
+.auth-tabs {
+  display: flex;
+  background: var(--slate-100);
+  padding: 4px;
+  border-radius: var(--radius-md);
+  margin-bottom: 24px;
+  border: 1px solid var(--slate-200);
+}
+
+.auth-tab-btn {
+  flex: 1;
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--slate-600);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.auth-tab-btn:hover {
+  color: var(--slate-900);
+}
+
+.auth-tab-btn.is-active {
+  background: var(--white);
+  color: var(--slate-900);
+  box-shadow: var(--shadow-xs);
+}
+
 .auth-header {
   text-align: center;
   margin-bottom: 28px;
@@ -2771,11 +2817,46 @@
   color: var(--danger-text);
 }
 
+.auth-success-banner {
+  padding: 10px 14px;
+  background: var(--success-bg);
+  border: 1px solid #A7F3D0;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  color: var(--success-text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .auth-submit-btn {
   width: 100%;
   height: 48px;
   font-size: 15px;
   margin-top: 6px;
+}
+
+.auth-switch-prompt {
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--slate-500);
+  margin-top: 6px;
+}
+
+.auth-switch-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0 4px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+}
+
+.auth-switch-btn:hover {
+  color: var(--primary-hover);
 }
 
 .auth-security-notice {
@@ -2786,6 +2867,30 @@
   font-size: 12px;
   color: var(--slate-400);
   margin-top: 4px;
+}
+
+.booking-auth-prompt-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.booking-auth-signin-link {
+  background: transparent;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--slate-600);
+  cursor: pointer;
+  padding: 6px 0;
+  text-align: center;
+  transition: color 0.15s ease;
+}
+
+.booking-auth-signin-link:hover {
+  color: var(--primary);
+  text-decoration: underline;
 }
 
 /* ==========================================================================
@@ -3010,7 +3115,8 @@
 
 @media (max-width: 768px) {
   .desktop-nav-links,
-  .guest-nav-actions .btn-text-signin {
+  .guest-nav-actions .btn-text-signin,
+  .guest-nav-actions .btn-text-signup {
     display: none;
   }
 

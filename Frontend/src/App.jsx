@@ -11,6 +11,7 @@ import {
   Calendar,
   LogOut,
   LogIn,
+  UserPlus,
   Shield,
   Menu,
   X,
@@ -135,6 +136,14 @@ function Navigation({ go, currentRoute }) {
                 <LogIn size={15} />
                 <span>Sign in</span>
               </button>
+              <button
+                type="button"
+                className="btn-text-signin btn-text-signup"
+                onClick={() => navigateTo('/signup')}
+              >
+                <UserPlus size={15} />
+                <span>Sign up</span>
+              </button>
               <Button
                 variant="primary"
                 size="sm"
@@ -215,6 +224,14 @@ function Navigation({ go, currentRoute }) {
                 <span>Sign In</span>
               </Button>
               <Button
+                variant="secondary"
+                onClick={() => navigateTo('/signup')}
+                style={{ width: '100%', marginBottom: '10px' }}
+              >
+                <UserPlus size={16} />
+                <span>Create Account</span>
+              </Button>
+              <Button
                 variant="primary"
                 onClick={() => navigateTo('/book')}
                 style={{ width: '100%' }}
@@ -243,7 +260,9 @@ function AppContent() {
     ) : route === '/bookings' ? (
       <MyBookingsPage go={go} />
     ) : route === '/login' ? (
-      <LoginPage go={go} />
+      <LoginPage go={go} initialMode="login" />
+    ) : route === '/signup' ? (
+      <LoginPage go={go} initialMode="signup" />
     ) : route === '/admin' ? (
       <AdminServicesPage />
     ) : (

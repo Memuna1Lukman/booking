@@ -12,7 +12,15 @@ async function request(path, options = {}) {
   const isJson = response.headers.get('content-type')?.includes('application/json')
   const data = isJson ? await response.json() : null
   if (!response.ok) {
-    const error = new Error(data?.detail || 'Something went wrong. Please try again.')
+    let errorMessage = 'Something went wrong. Please try again.'
+    if (typeof data?.detail === 'string') {
+      errorMessage = data.detail
+    } else if (Array.isArray(data?.detail) && data.detail.length > 0) {
+      errorMessage = data.detail.map((d) => d.msg || JSON.stringify(d)).join(', ')
+    } else if (data?.message) {
+      errorMessage = data.message
+    }
+    const error = new Error(errorMessage)
     error.status = response.status
     error.data = data
     throw error

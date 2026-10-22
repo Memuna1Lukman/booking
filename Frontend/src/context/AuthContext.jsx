@@ -15,8 +15,16 @@ export function AuthProvider({ children }) {
     setUser(nextUser?.user || nextUser)
     return nextUser
   }
+  const signup = async (userData) => {
+    await authApi.register(userData)
+    try {
+      return await login({ email: userData.email, password: userData.password })
+    } catch {
+      return null
+    }
+  }
   const logout = async () => {
     try { await authApi.logout() } finally { setUser(null) }
   }
-  return <AuthContext.Provider value={{ user, loading, login, logout }}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ user, loading, login, signup, logout }}>{children}</AuthContext.Provider>
 }

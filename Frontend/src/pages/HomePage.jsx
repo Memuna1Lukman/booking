@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { Button } from '../components/ui/Button'
 import { useServices } from '../hooks/useServices'
 import {
@@ -15,8 +15,6 @@ import {
   ChevronDown,
   ChevronUp,
   Search,
-  Users,
-  Award,
   Share2,
 } from 'lucide-react'
 
@@ -146,7 +144,7 @@ const faqs = [
 ]
 
 export function HomePage({ go }) {
-  const { services, loading: servicesLoading } = useServices()
+  const { services } = useServices()
   const [selectedCategory, setSelectedCategory] = useState('All Services')
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -783,6 +781,7 @@ export function HomePage({ go }) {
             <button type="button" onClick={() => go('/book')}>Book an Appointment</button>
             <button type="button" onClick={() => go('/bookings')}>My Bookings</button>
             <button type="button" onClick={() => go('/login')}>Sign In</button>
+            <button type="button" onClick={() => go('/signup')}>Sign Up</button>
           </div>
 
           <div className="footer-links-col">
